@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+//TODO: CREAT COURSE DTO
+
 @CrossOrigin(origins = { "http://localhost:3000"})
-@RestController
+@RestController("/course")
 public class CourseController {
     @Autowired
     private CourseService courseService;
@@ -29,17 +31,17 @@ public class CourseController {
         return courseService.getCourses();
     }
 
-    @GetMapping("/course/{id}")
+    @GetMapping("/{id}")
     public Course findCourseById(@PathVariable int id) {
         return courseService.getCourseById(id);
     }
 
-    @GetMapping("/course/{name}")
+    @GetMapping("/{name}")
     public Course findCourseByName(@PathVariable String name) {
         return courseService.getCourseByName(name);
     }
 
-    @GetMapping("/listUsername/{username}")
+    @GetMapping("/user/{username}")
     public List<Course> findCoursesByUsername(@PathVariable String username) {
         return courseService.getCoursesForUser(username);
     }
