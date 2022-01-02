@@ -10,25 +10,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/user")
+@RestController
+@RequestMapping("user")
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
     
-    @GetMapping("/{userId}")
+    @GetMapping(path="/{userId}")
     public User getUserById(@PathVariable Long userId){
         return userService.getUserById(userId);
     }
-
-    @PostMapping
-    public User creatUser(@RequestBody UserRequest userRequest){
+ 
+    @PostMapping()
+    public User createUser(@RequestBody UserRequest userRequest){
         return userService.createUser(userRequest);
     }
 
-    @PostMapping("/{userId}/todos")
+    @PostMapping(path="/{userId}/todos")
     public void createTodo(@PathVariable Long userId, @RequestBody TodoRequest todoRequest){
         userService.createTodo(userId, todoRequest);
     }
