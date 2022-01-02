@@ -1,6 +1,5 @@
 package com.todoapp.app.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,16 +15,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "courses_table")
-public class Course {
+public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
-    private String name;
-    private String description;
-    private String status;
+    private String content;
 
-    @Column(name = "username")
-    private String username;
+    private Boolean completed = Boolean.FALSE;
 }
