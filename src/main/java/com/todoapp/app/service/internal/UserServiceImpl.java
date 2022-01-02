@@ -21,20 +21,27 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
     }
 
-    public User createUser(UserRequest userRequest){
+    public User createUser(UserRequest userRequest) {
         User user = new User();
         user.setUsername(userRequest.getUsername());
         user.setPassword(userRequest.getPassword());
         return userRepository.save(user);
     }
 
-    public void createTodo(Long userId, TodoRequest todoRequest){
+    public void createTodo(Long userId, TodoRequest todoRequest) {
         User user = this.getUserById(userId);
         Todo todo = new Todo();
-        
+
         todo.setContent(todoRequest.getContent());
         user.getTodoList().add(todo);
         userRepository.save(user);
     }
 
+    @Override
+    public User getUserByUsername(String username) throws Exception {
+        User user = userRepository.findByUsername(username);
+        if (user == null)
+            throw new Exception("User not found with that username");
+        return user;
+    }
 }

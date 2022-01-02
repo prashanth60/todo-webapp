@@ -6,8 +6,11 @@ import com.todoapp.app.request.UserRequest;
 
 public interface UserService {
     public User getUserById(Long userId);
+
+    public User getUserByUsername(String username) throws Exception;
+
     public User createUser(UserRequest userRequest);
+
     public void createTodo(Long userId, TodoRequest todoRequest);
-    
 
 }

@@ -1,5 +1,7 @@
 package com.todoapp.app.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "todo")
-public class Todo {
+public class Todo implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
