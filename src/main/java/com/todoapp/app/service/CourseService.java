@@ -25,7 +25,7 @@ public class CourseService {
     }
 
     //GEt
-    public List<Course> getCourse(){
+    public List<Course> getCourses(){
         return courseRepository.findAll();
     }
 
@@ -43,7 +43,7 @@ public class CourseService {
     }
 
     // PUT
-    public Course udpdateCourse(Course course){
+    public Course updateCourse(Course course){
         System.out.println("updates");
         Course courseToUpdate = this.getCourseById(course.getId());
 
