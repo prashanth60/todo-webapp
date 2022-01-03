@@ -6,10 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,16 +33,16 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "username", unique = true)
+    @Column(nullable = false, name = "username", unique = true)
     private String username;
     private String password;
 
     private Boolean enabled = Boolean.TRUE;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Todo> todoList = new ArrayList<>();
 
-    @ElementCollection
+    @OneToMany(mappedBy = "userHasRole", fetch = FetchType.EAGER, orphanRemoval = false)
     private Set<Role> authorities = new HashSet<>();
 
     @CreatedDate

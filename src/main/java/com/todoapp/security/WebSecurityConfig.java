@@ -1,57 +1,84 @@
 package com.todoapp.security;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 
 import com.todoapp.app.service.UserService;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authorization.AuthorizationManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.intercept.AuthorizationFilter;
 
+@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userDetailsService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private UserService userDetailsService;
 
-    public WebSecurityConfig(UserService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    DataSource datasource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        auth.jdbcAuthentication()
+                .dataSource(datasource)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)
-                .permitAll()
-                .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
-                .permitAll()
-                .anyRequest().authenticated()
+        String loginPage = "/login";
+        String logoutPage = "/logout";
+
+        http.authorizeRequests()
+                .anyRequest()
+                .fullyAuthenticated()
                 .and()
-                .addFilter(getAuthenticationFilter())
-                .addFilter(new AuthorizationFilter((AuthorizationManager<HttpServletRequest>) authenticationManager()))
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .formLogin()
+                .loginPage(loginPage)
+                .failureUrl("/login?error")
+                .permitAll()
+                .and()
+                .logout()
+                .logoutUrl(logoutPage)
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+                .and()
+                .csrf();
+        // http
+        // .authorizeRequests()
+        // .antMatchers("/").permitAll()
+        // .antMatchers(loginPage).permitAll()
+        // .antMatchers(HttpMethod.GET, "/registration").permitAll()
+        // .antMatchers("/admin/**").hasAuthority("USER") // admin
+        // // .anyRequest().authenticated()
+        // .and()
+        // .csrf().disable()
+        // .formLogin()
+        // .loginPage(loginPage)
+        // .loginPage("/")
+        // .failureUrl("/login?error=true")
+        // .defaultSuccessUrl("/admin/home")
+        // .usernameParameter("user_name")
+        // .passwordParameter("password")
+        // .and()
+        // .logout()
+        // .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
+        // .logoutSuccessUrl(loginPage).and().exceptionHandling();
     }
 
-    public AuthenticationFilter getAuthenticationFilter() throws Exception {
-        final AuthenticationFilter filter = new AuthenticationFilter(authenticationManager());
-        filter.setFilterProcessesUrl("/auth/login");
-        return filter;
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
 }
