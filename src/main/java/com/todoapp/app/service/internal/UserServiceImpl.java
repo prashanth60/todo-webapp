@@ -10,6 +10,9 @@ import com.todoapp.app.request.UserRequest;
 import com.todoapp.app.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,14 +20,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public User getUserById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
+        return userRepository
+                .findById(userId)
+                .orElseThrow(NoSuchElementException::new);
     }
 
     public User createUser(UserRequest userRequest) {
         User user = new User();
         user.setUsername(userRequest.getUsername());
-        user.setPassword(userRequest.getPassword());
+        user.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
         return userRepository.save(user);
     }
 
@@ -37,11 +45,25 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    /*
+     * @Override
+     * public User getUserByUsername(String username) {
+     * // User user = userRepository.findByUsername(username);
+     * // if (user == null)
+     * // throw new UsernameNotFoundException("User not found with that username");
+     * return userRepository
+     * .findByUsername(username)
+     * .orElseThrow(
+     * () -> new UsernameNotFoundException("User with username - " + username +
+     * ", not found"));
+     * }
+     */
+
     @Override
-    public User getUserByUsername(String username) throws Exception {
-        User user = userRepository.findByUsername(username);
-        if (user == null)
-            throw new Exception("User not found with that username");
-        return user;
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository
+                .findByUsername(username)
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("User with username - " + username + ", not found"));
     }
 }
