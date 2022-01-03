@@ -1,7 +1,5 @@
 package com.todoapp.security;
 
-import javax.sql.DataSource;
-
 import com.todoapp.app.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -23,13 +22,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    DataSource datasource;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(datasource)
+        auth
+                .userDetailsService(userDetailsService)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
 
@@ -39,40 +35,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         String logoutPage = "/logout";
 
         http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers(loginPage).permitAll()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest()
-                .fullyAuthenticated()
-                .and()
+                .authenticated()
+                .and().csrf().disable()
                 .formLogin()
                 .loginPage(loginPage)
-                .failureUrl("/login?error")
-                .permitAll()
-                .and()
-                .logout()
-                .logoutUrl(logoutPage)
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-                .and()
-                .csrf();
-        // http
-        // .authorizeRequests()
-        // .antMatchers("/").permitAll()
-        // .antMatchers(loginPage).permitAll()
-        // .antMatchers(HttpMethod.GET, "/registration").permitAll()
-        // .antMatchers("/admin/**").hasAuthority("USER") // admin
-        // // .anyRequest().authenticated()
-        // .and()
-        // .csrf().disable()
-        // .formLogin()
-        // .loginPage(loginPage)
-        // .loginPage("/")
-        // .failureUrl("/login?error=true")
-        // .defaultSuccessUrl("/admin/home")
-        // .usernameParameter("user_name")
-        // .passwordParameter("password")
-        // .and()
-        // .logout()
-        // .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
-        // .logoutSuccessUrl(loginPage).and().exceptionHandling();
+                .loginPage("/")
+                .failureUrl("/login?error=true")
+                .defaultSuccessUrl("/admin/home")
+                .usernameParameter("user_name")
+                .passwordParameter("password")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
+                .logoutSuccessUrl(loginPage).and().exceptionHandling();
     }
 
     @Override

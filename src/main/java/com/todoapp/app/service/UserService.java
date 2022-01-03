@@ -12,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService {
     public User getUserById(Long userId);
 
-    // public User getUserByUsername(String username);
-
     public User createUser(UserSignUpRequest userRequest);
 
     public void createTodo(Long userId, TodoRequest todoRequest);
