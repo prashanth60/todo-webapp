@@ -47,19 +47,23 @@ public class UserServiceImpl implements UserService {
 
         user.setUsername(userRequest.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
+
         user.setAuthorities(authorities);
 
         return userRepository.save(user);
     }
 
     @Override
-    public void createTodo(Long userId, TodoRequest todoRequest) {
-        User user = this.getUserById(userId);
+    public void createTodo(String username, TodoRequest todoRequest) {
+        User user = (User) this.loadUserByUsername(username);
         Todo todo = new Todo();
 
-        todo.setContent(todoRequest.getContent());
+        todo.setUser(user);
+        todo.setContent(todoRequest.getItemContent());
+
         user.getTodoList().add(todo);
-        userRepository.save(user);
+
+        todoRepository.save(todo);
     }
 
     @Override

@@ -7,8 +7,6 @@ import com.todoapp.app.request.UserSignUpRequest;
 import com.todoapp.app.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -60,14 +58,4 @@ public class LoginController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/admin/home")
-    public ModelAndView home() {
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) userService.loadUserByUsername(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + user.getUsername() + ")");
-        modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("admin/home");
-        return modelAndView;
-    }
 }
