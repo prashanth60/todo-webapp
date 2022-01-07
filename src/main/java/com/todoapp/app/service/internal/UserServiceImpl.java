@@ -1,5 +1,6 @@
 package com.todoapp.app.service.internal;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -43,11 +44,12 @@ public class UserServiceImpl implements UserService {
         User user = new User();
 
         Set<Role> authorities = new HashSet<>();
-        authorities.add(new Role("USER"));
+        authorities.add(new Role("ROLE_USER"));
 
         user.setUsername(userRequest.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
-
+        user.setCreatedAt(LocalDateTime.now());
+        user.setModifiedAt(LocalDateTime.now());
         user.setAuthorities(authorities);
 
         return userRepository.save(user);

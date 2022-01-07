@@ -1,4 +1,4 @@
-package com.todoapp.security;
+package com.todoapp.app.security;
 
 import com.todoapp.app.service.UserService;
 
@@ -33,21 +33,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         String loginPage = "/login";
         String logoutPage = "/logout";
-
+        http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers(loginPage).permitAll()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/admin/**").hasAuthority("USER")
+                .antMatchers("/admin/**").hasAuthority("ROLE_USER")
                 .anyRequest()
                 .authenticated()
-                .and().csrf().disable()
+                .and()
                 .formLogin()
-                .loginPage(loginPage)
-                .loginPage("/")
-                .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/user/home")
-                .usernameParameter("user_name")
+                .loginPage(loginPage).permitAll()
+                .successForwardUrl("/user/home")
+                .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
