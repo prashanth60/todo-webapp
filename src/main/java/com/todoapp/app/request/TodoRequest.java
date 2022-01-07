@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class TodoRequest {
-    private String content;
+    private String itemContent;
 }

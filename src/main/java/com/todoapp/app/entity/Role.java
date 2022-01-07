@@ -1,7 +1,5 @@
 package com.todoapp.app.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,28 +7,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "todo")
-public class Todo implements Serializable {
+@Entity(name = "role")
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user.id", nullable = false)
-    private User user;
+    private User userHasRole;
 
-    private String content;
+    private String authority;
 
-    private Boolean completed = Boolean.FALSE;
+    public Role(String role) {
+        this.authority = role;
+    }
+
 }
