@@ -1,4 +1,4 @@
-package com.todoapp.app.security;
+package com.todoapp.app.config.security;
 
 import com.todoapp.app.service.UserService;
 
