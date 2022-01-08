@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
-  <head>
-    <title th:utext="Home"></title>
-    <link th:rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
-    <link
-      th:rel="stylesheet"
-      th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"
-    />
-    <script th:src="@{/webjars/jquery/3.6.0/jquery.js}"></script>
-    <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
-  </head>
+  <head th:replace="fragments/head :: head(title='Home')"> </head>
 
   <body>
     <div class="container">
@@ -66,7 +57,7 @@
               </thead>
               <tbody>
                 <tr th:each="item: ${todoList}">
-                  <td th:text="${item.getContent}"></td>
+                  <td th:text="${item.getContent}" th:classappend="${item.getCompleted} ? completed : ''"></td>
                   <td><input type="checkbox" name="active" th:checked="${item.getCompleted}" /></td>
                   <td>
                     <a class="btn btn-warning btn-sm" href="/edit/{{employee.id}}">Edit</a> |
