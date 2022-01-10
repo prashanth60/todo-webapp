@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head th:fragment="head">
         <title th:text="${title}"></title>
+        <link th:rel="stylesheet" type="text/css" th:href="@{css/global.css}" />
         <link th:rel="stylesheet" type="text/css" th:href="@{${css}}" />
         <link
           th:rel="stylesheet"
