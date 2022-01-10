@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Registration Form</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+      <head th:replace="fragments/head :: head(title='Sign Up', css='@{/css/registration.css}')"> </head>
 <body>
-    <a th:href="@{/}" class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</a>
-
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form autocomplete="off" action="registration" th:action="@{/registration}"
                   th:object="${user}" method="post" class="form-horizontal"
                   role="form">
-                <h2>Registration Form</h2>
+                <h2>Sign Up</h2>
 
                 <div class="form-group">
                     <div class="col-sm-9">
@@ -46,6 +38,8 @@
                 <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
 
             </form>
+            <a th:href="@{/login}">Or sign in</a>
+
         </div>
     </div>
 </div>
