@@ -42,7 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage(loginPage).permitAll()
-                .successForwardUrl("/user/home")
+                .defaultSuccessUrl("/user/home", true)
+                // .successForwardUrl("/user/home")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout()
@@ -54,7 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/webjars/**",
+                .antMatchers("/resources/**",
+                        "/static/**",
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/webjars/**",
                         "/webjars/");
     }
 }
