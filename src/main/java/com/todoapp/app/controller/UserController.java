@@ -26,7 +26,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         TodoRequest todoUser = new TodoRequest();
         User user = (User) userService.loadUserByUsername(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + user.getUsername());
+        modelAndView.addObject("userName", user.getUsername());
         modelAndView.addObject("todoUser", todoUser);
         modelAndView.addObject("todoList", user.getTodoList());
         modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");

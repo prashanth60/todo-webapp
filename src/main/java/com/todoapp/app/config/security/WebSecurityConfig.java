@@ -1,4 +1,4 @@
-package com.todoapp.app.security;
+package com.todoapp.app.config.security;
 
 import com.todoapp.app.service.UserService;
 
@@ -54,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/webjars/**",
+                        "/webjars/");
     }
 }
