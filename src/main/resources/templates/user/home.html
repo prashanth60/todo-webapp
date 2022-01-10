@@ -41,6 +41,7 @@
                     th:text="Create"
                   ></button>
               </div>
+              <p th:if="${successMessage}" class="text-success" th:text="${successMessage}"></p>
             </form>
             <br>
             <table

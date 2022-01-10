@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +32,8 @@ public class Todo implements Serializable {
     @JoinColumn(name = "user.id", nullable = false)
     private User user;
 
+    @NotNull
+    @NotEmpty
     private String content;
 
     private Boolean completed = Boolean.FALSE;
