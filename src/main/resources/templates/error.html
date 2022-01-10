@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Registration Form</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
-    <a th:href="@{/login}" class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</a>
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head
+    th:replace="fragments/head :: head(title='Error', css='/css/registration.css')"
+  >
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="row vh-100 align-items-center justify-content-center">
+          <div class="col">
+            <h1>Sorry, an error occurred.</h1>
+            <p>:(</p>
+            <a
+              th:href="@{/login}"
+              class="btn btn-md btn-primary btn-block"
+              type="Submit"
+              >Home</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
 
-<div class="container">
-        <h1>Error occurred</h1>
-        <p>
-            An error has occurred. Please contact the administrator
-        </p>
-</div>
-
-</body>
+    <footer th:replace="fragments/footer :: footer"></footer>
+  </body>
 </html>
