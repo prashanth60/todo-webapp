@@ -41,13 +41,17 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) userService.loadUserByUsername(auth.getName());
-        userService.createTodo(auth.getName(), todo);
+
+        if (todo.getItemContent().isEmpty() || todo.getItemContent().isBlank()) {
+            modelAndView.addObject("errorMessage", "Cannot create empty item");
+        } else {
+            userService.createTodo(auth.getName(), todo);
+            modelAndView.addObject("successMessage", "Item has been created successfully");
+        }
 
         modelAndView.addObject("userName", user.getUsername());
-        modelAndView.addObject("successMessage", "Item has been created successfully");
         modelAndView.addObject("todoUser", new TodoRequest());
         modelAndView.addObject("todoList", user.getTodoList());
-        modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
 
         modelAndView.setViewName("user/home");
 
