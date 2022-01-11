@@ -14,9 +14,14 @@ public interface UserService extends UserDetailsService {
 
     public User createUser(UserSignUpRequest userRequest);
 
+    public void updateTodo(Long todoId, TodoRequest todoRequest);
+
     public void createTodo(String username, TodoRequest todoRequest);
 
     public List<Todo> getAllTodos(Long userId);
 
     public void saveUser(User user);
+
+    public void deleteTodo(Long id);
+
 }

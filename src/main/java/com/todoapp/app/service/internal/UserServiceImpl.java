@@ -14,6 +14,7 @@ import com.todoapp.app.repositories.UserRepository;
 import com.todoapp.app.request.TodoRequest;
 import com.todoapp.app.request.UserSignUpRequest;
 import com.todoapp.app.service.UserService;
+import com.todoapp.app.shared.dto.UserDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -86,5 +87,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public void updateTodo(Long todoId, TodoRequest todoRequest) {
+        // User user = (User) this.loadUserByUsername(username);
+        Todo todoToUpdate = todoRepository.getById(todoId);
+
+        if (!(todoRequest.getItemContent().isBlank() || todoRequest.getItemContent().isEmpty())) {
+            todoToUpdate.setContent(todoRequest.getItemContent());
+        }
+
+        todoRepository.save(todoToUpdate);
+    }
+
+    @Override
+    public void deleteTodo(Long id) {
+        todoRepository.deleteById(id);
     }
 }
