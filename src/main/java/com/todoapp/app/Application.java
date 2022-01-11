@@ -9,8 +9,7 @@ public class Application {
 	/*
 	 * TODO:
 	 * - Agregar validador para el registro
-	 * - Implementar modificar / eliminar items
-	 * - Implementar marcar como compleado un item
+	 * - Hacer que el script funcione en otro archivo
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

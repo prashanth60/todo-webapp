@@ -117,112 +117,11 @@
         </div>
       </div>
     </div>
+    
     <!-- Edit Modal -->
-    <div
-      class="modal fade"
-      id="editModal"
-      tabindex="-1"
-      aria-labelledby="editModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editModalLabel">Edit item</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form
-              action="/user/home/edit"
-              th:action="@{/user/home/edit}"
-              method="post"
-            >
-              <div class="form-group row">
-                <input id="itemIdEdit" type="hidden" name="id" />
-                <input
-                  type="text"
-                  id="itemContentEdit"
-                  name="edit"
-                  class="form-control"
-                />
-                <div class="form-check">
-                <label class="form-check-label" for="itemCompletedEdit">
-                  Mark as completed
-                </label>
-                <input
-                  id="itemCompletedEdit"
-                  type="checkbox"
-                  name="completed"
-                  class="form-check-input"
-                />
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="submit" class="btn btn-primary">
-                  Save changes
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <div th:replace="fragments/modals :: edit"></div>
     <!-- Delete Modal -->
-    <div
-      class="modal fade"
-      id="deleteModal"
-      tabindex="-1"
-      aria-labelledby="deleteModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="deleteModalLabel">Delete item</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form
-              action="/user/home/delete"
-              th:action="@{/user/home/delete}"
-              method="post"
-            >
-              <div class="form-group row">
-                <input id="itemIdDelete" type="hidden" name="id" />
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="submit" class="btn btn-danger">Delete</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div th:replace="fragments/modals :: delete"></div>
 
     <footer th:replace="fragments/footer :: footer"></footer>
     <script>
