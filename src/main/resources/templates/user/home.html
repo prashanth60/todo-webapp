@@ -18,9 +18,11 @@
           <div class="panel-heading">
             <h1 th:utext="'👋 Welcome ' + ${userName} + '!'"></h1>
           </div>
-          <br>
+          <br />
           <div class="panel-body">
-            <h3 th:if="${#lists.isEmpty(todoList)}"><em>No items to show</em></h3>
+            <h3 th:if="${#lists.isEmpty(todoList)}">
+              <em>No items to show</em>
+            </h3>
 
             <form
               th:object="${todoUser}"
@@ -79,6 +81,7 @@
                   <td>
                     <input
                       type="checkbox"
+                      disabled
                       name="active"
                       th:checked="${item.getCompleted}"
                     />
@@ -89,6 +92,7 @@
                       class="btn btn-warning btn-sm"
                       data-bs-toggle="modal"
                       th:data-id="${item.getId}"
+                      th:data-completed="${item.getCompleted}"
                       th:data-content="${item.getContent}"
                       data-bs-target="#editModal"
                     >
@@ -133,15 +137,30 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form action="/user/home/edit" th:action="@{/user/home/edit}" method="post">
+            <form
+              action="/user/home/edit"
+              th:action="@{/user/home/edit}"
+              method="post"
+            >
               <div class="form-group row">
-                <input id="itemIdEdit" type="hidden" name="id">
+                <input id="itemIdEdit" type="hidden" name="id" />
                 <input
                   type="text"
                   id="itemContentEdit"
                   name="edit"
                   class="form-control"
                 />
+                <div class="form-check">
+                <label class="form-check-label" for="itemCompletedEdit">
+                  Mark as completed
+                </label>
+                <input
+                  id="itemCompletedEdit"
+                  type="checkbox"
+                  name="completed"
+                  class="form-check-input"
+                />
+                </div>
               </div>
               <div class="modal-footer">
                 <button
@@ -181,9 +200,13 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form action="/user/home/delete" th:action="@{/user/home/delete}" method="post">
+            <form
+              action="/user/home/delete"
+              th:action="@{/user/home/delete}"
+              method="post"
+            >
               <div class="form-group row">
-                <input id="itemIdDelete" type="hidden" name="id">
+                <input id="itemIdDelete" type="hidden" name="id" />
               </div>
               <div class="modal-footer">
                 <button
@@ -196,9 +219,7 @@
                 <button type="submit" class="btn btn-danger">Delete</button>
               </div>
             </form>
-
           </div>
-          
         </div>
       </div>
     </div>
@@ -210,8 +231,10 @@
 
         var id = button.data("id"); // Extract info from data-* attributes
         var content = button.data("content");
+        var completed = button.data("completed");
         var modal = $(this);
 
+        modal.find("#itemCompletedEdit").prop("checked", completed);  
         modal.find("#itemContentEdit").val(content);
         modal.find("#itemIdEdit").val(id);
       });

@@ -89,13 +89,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateTodo(Long todoId, TodoRequest todoRequest) {
-        // User user = (User) this.loadUserByUsername(username);
+    public void updateTodo(Long todoId, TodoRequest todoRequest, boolean completed) {
         Todo todoToUpdate = todoRepository.getById(todoId);
 
         if (!(todoRequest.getItemContent().isBlank() || todoRequest.getItemContent().isEmpty())) {
             todoToUpdate.setContent(todoRequest.getItemContent());
         }
+
+        todoToUpdate.setCompleted(completed);
 
         todoRepository.save(todoToUpdate);
     }

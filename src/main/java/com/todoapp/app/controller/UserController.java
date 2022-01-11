@@ -63,12 +63,13 @@ public class UserController {
 
     @PostMapping("/edit")
     public ModelAndView updateTodo(@RequestParam(name = "id") Long id,
-            @RequestParam(name = "edit") @Valid TodoRequest todo) {
+            @RequestParam(name = "edit") @Valid TodoRequest todo,
+            @RequestParam(name = "completed", required = false) boolean completed) {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) userService.loadUserByUsername(auth.getName());
 
-        userService.updateTodo(id, todo);
+        userService.updateTodo(id, todo, completed);
 
         modelAndView.addObject("userName", user.getUsername());
         modelAndView.addObject("todoUser", new TodoRequest());
