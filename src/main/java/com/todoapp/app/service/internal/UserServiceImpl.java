@@ -14,7 +14,6 @@ import com.todoapp.app.repositories.UserRepository;
 import com.todoapp.app.request.TodoRequest;
 import com.todoapp.app.request.UserSignUpRequest;
 import com.todoapp.app.service.UserService;
-import com.todoapp.app.shared.dto.UserDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
