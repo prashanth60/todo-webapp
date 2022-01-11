@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
-  <head th:replace="fragments/head :: head(title='Home', css='/css/home.css')"> </head>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  lang="en"
+>
+  <head th:replace="fragments/head :: head(title='Home', css='/css/home.css')">
+  </head>
 
   <body>
     <div class="container">
@@ -11,11 +16,11 @@
       <div class="panel-group">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h1 th:utext="'Welcome ' + ${userName} + '!'"></h1>
+            <h1 th:utext="'👋 Welcome ' + ${userName} + '!'"></h1>
           </div>
-
+          <br>
           <div class="panel-body">
-            <h3 th:if="${#lists.isEmpty(todoList)}">No items to show</h3>
+            <h3 th:if="${#lists.isEmpty(todoList)}"><em>No items to show</em></h3>
 
             <form
               th:object="${todoUser}"
@@ -34,17 +39,25 @@
                     class="form-control"
                   />
                 </div>
-                  <button
-                    class=" col col-12 col-sm-2 col-md-1 btn btn-primary btn-block"
-                    name="Submit"
-                    type="Submit"
-                    th:text="Create"
-                  ></button>
+                <button
+                  class="col col-12 col-sm-2 col-md-1 btn btn-primary btn-block"
+                  name="Submit"
+                  type="Submit"
+                  th:text="Create"
+                ></button>
               </div>
-              <p th:if="${successMessage}" class="text-success" th:text="${successMessage}"></p>
-              <p th:if="${errorMessage}" class="text-danger" th:text="${errorMessage}"></p>
+              <p
+                th:if="${successMessage}"
+                class="text-success"
+                th:text="${successMessage}"
+              ></p>
+              <p
+                th:if="${errorMessage}"
+                class="text-danger"
+                th:text="${errorMessage}"
+              ></p>
             </form>
-            <br>
+            <br />
             <table
               class="table table-hover"
               th:unless="${#lists.isEmpty(todoList)}"
@@ -59,20 +72,37 @@
               </thead>
               <tbody>
                 <tr th:each="item: ${todoList}">
-                  <td th:text="${item.getContent}" th:classappend="${item.getCompleted} ? completed : ''"></td>
-                  <td><input type="checkbox" name="active" th:checked="${item.getCompleted}" /></td>
+                  <td
+                    th:text="${item.getContent}"
+                    th:classappend="${item.getCompleted} ? completed : ''"
+                  ></td>
                   <td>
-                    <a class="btn btn-warning btn-sm" href="/edit/{{employee.id}}">Edit</a> |
-                    <button 
-                      type="button" 
-                      id="delete" 
-                      class="btn btn-danger btn-sm" 
-                      data-toggle="modal" 
-                      data-id="{{employee.id}}"
-                      data-name="{{employee.name}}"
-                      data-surname="{{employee.surname}}"
-                      data-target="#modalDelete"
-                      >
+                    <input
+                      type="checkbox"
+                      name="active"
+                      th:checked="${item.getCompleted}"
+                    />
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-warning btn-sm"
+                      data-bs-toggle="modal"
+                      th:data-id="${item.getId}"
+                      th:data-content="${item.getContent}"
+                      data-bs-target="#editModal"
+                    >
+                      Edit
+                    </button>
+                    |
+                    <button
+                      type="button"
+                      id="delete"
+                      class="btn btn-danger btn-sm"
+                      data-bs-toggle="modal"
+                      th:data-id="${item.getId}"
+                      data-bs-target="#deleteModal"
+                    >
                       Delete
                     </button>
                   </td>
@@ -83,6 +113,118 @@
         </div>
       </div>
     </div>
+    <!-- Edit Modal -->
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Edit item</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="/user/home/edit" th:action="@{/user/home/edit}" method="post">
+              <div class="form-group row">
+                <input id="itemIdEdit" type="hidden" name="id">
+                <input
+                  type="text"
+                  id="itemContentEdit"
+                  name="edit"
+                  class="form-control"
+                />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Delete item</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="/user/home/delete" th:action="@{/user/home/delete}" method="post">
+              <div class="form-group row">
+                <input id="itemIdDelete" type="hidden" name="id">
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </div>
+            </form>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
     <footer th:replace="fragments/footer :: footer"></footer>
+    <script>
+      $("#editModal").on("show.bs.modal", function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+
+        var id = button.data("id"); // Extract info from data-* attributes
+        var content = button.data("content");
+        var modal = $(this);
+
+        modal.find("#itemContentEdit").val(content);
+        modal.find("#itemIdEdit").val(id);
+      });
+
+      $("#deleteModal").on("show.bs.modal", function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+
+        var id = button.data("id"); // Extract info from data-* attributes
+        var modal = $(this);
+
+        modal.find("#itemIdDelete").val(id);
+      });
+    </script>
+    <script th:src="@{scripts/modal.js}"></script>
   </body>
 </html>
