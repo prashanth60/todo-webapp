@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateTodo(Long todoId, TodoRequest todoRequest, boolean completed) {
+    public void updateTodo(Long todoId, TodoRequest todoRequest, Boolean completed) {
         Todo todoToUpdate = todoRepository.getById(todoId);
 
         if (!(todoRequest.getItemContent().isBlank() || todoRequest.getItemContent().isEmpty())) {
