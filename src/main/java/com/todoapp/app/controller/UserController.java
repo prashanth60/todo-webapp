@@ -5,7 +5,9 @@ import javax.validation.Valid;
 import com.todoapp.app.io.entity.User;
 import com.todoapp.app.model.request.TodoRequest;
 import com.todoapp.app.service.UserService;
+import com.todoapp.app.shared.dto.UserDto;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,9 +31,12 @@ public class UserController {
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) userService.loadUserByUsername(auth.getName());
 
-        modelAndView.addObject("user", user);
+        User user = (User) userService.loadUserByUsername(auth.getName());
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto);
+
+        modelAndView.addObject("user", userDto);
         modelAndView.addObject("todoUser", new TodoRequest());
 
         modelAndView.setViewName(VIEW_NAME);
@@ -43,7 +48,10 @@ public class UserController {
     public ModelAndView createTodo(@Valid TodoRequest todo) {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         User user = (User) userService.loadUserByUsername(auth.getName());
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto);
 
         if (todo.getItemContent().isEmpty() || todo.getItemContent().isBlank()) {
             modelAndView.addObject("errorMessage", "Cannot create empty item");
@@ -52,7 +60,7 @@ public class UserController {
             modelAndView.addObject("successMessage", "Item has been created successfully");
         }
 
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", userDto);
         modelAndView.addObject("todoUser", new TodoRequest());
 
         modelAndView.setViewName(VIEW_NAME);
@@ -66,11 +74,14 @@ public class UserController {
             @RequestParam(name = "completed", required = false) boolean completed) {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         User user = (User) userService.loadUserByUsername(auth.getName());
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto);
 
         userService.updateTodo(id, todo, completed);
 
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", userDto);
         modelAndView.addObject("todoUser", new TodoRequest());
 
         modelAndView.setViewName(VIEW_NAME);
@@ -81,11 +92,14 @@ public class UserController {
     public ModelAndView deleteTodo(@RequestParam(name = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         User user = (User) userService.loadUserByUsername(auth.getName());
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(user, userDto);
 
         userService.deleteTodo(id);
 
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", userDto);
         modelAndView.addObject("todoUser", new TodoRequest());
 
         modelAndView.setViewName(VIEW_NAME);
