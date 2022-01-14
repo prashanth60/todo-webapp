@@ -33,6 +33,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
+    private String name;
+
     @Column(nullable = false, name = "username", unique = true)
     private String username;
     private String password;
@@ -69,5 +72,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return this.enabled;
     }
-
 }
