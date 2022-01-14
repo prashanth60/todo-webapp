@@ -8,7 +8,7 @@
     <main>
       <div class="container">
         <div class="row vh-100 align-items-center justify-content-center">
-          <div class="col col-12 col-md-5">
+          <div class="sign-up-form col col-12 col-md-5">
             <h3 class="form-signin-heading">Sign up</h3>
             <form
               autocomplete="off"
@@ -19,6 +19,24 @@
               class="form-horizontal"
               role="form"
             >
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                aria-label="Name"
+                class="form-control"
+                placeholder="Name"
+                th:field="*{name}"
+                th:value="${user.name}"
+              />
+              <label for="floatingInput">Name</label>
+              <label
+                th:if="${#fields.hasErrors('name')}"
+                th:errors="*{name}"
+                class="validation-message"
+              ></label>
+            </div>
               <div class="form-floating mb-3">
                 <input
                   type="text"
@@ -58,9 +76,8 @@
               <div class="col-12">
                 <button type="submit" class="btn btn-primary">Sign up</button>
               </div>
-              <h2>
-                <span class="text-success" th:utext="${successMessage}"></span>
-              </h2>
+              <br>
+              <div th:if="${successMessage}" class="alert alert-success" th:utext="${successMessage}" role="alert"></div>
             </form>
             <a th:href="@{/login}">Or sign in</a>
           </div>

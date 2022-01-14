@@ -16,7 +16,7 @@
       <div class="panel-group">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h1 th:utext="'👋 Welcome ' + ${user.getUsername} + '!'"></h1>
+            <h1 th:utext="'👋 Welcome ' + ${user.getName} + '! ' + '(@' + ${user.getUsername} + ')'"></h1>
           </div>
           <br />
           <div class="panel-body">
