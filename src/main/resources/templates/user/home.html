@@ -10,7 +10,9 @@
   <body>
     <div class="container">
       <nav class="nav justify-content-end">
-        <a class="nav-link" th:href="@{/logout}">Logout</a>
+        <a class="nav-link" th:href="@{/logout}"
+          ><i class="fas fa-sign-out-alt"></i> Logout</a
+        >
       </nav>
 
       <div class="panel-group">
@@ -112,7 +114,7 @@
                       th:data-content="${item.getContent}"
                       data-bs-target="#editModal"
                     >
-                      Edit
+                      <i class="far fa-edit"></i>
                     </button>
                     |
                     <button
@@ -123,7 +125,7 @@
                       th:data-id="${item.getId}"
                       data-bs-target="#deleteModal"
                     >
-                      Delete
+                      <i class="far fa-trash-alt"></i>
                     </button>
                   </td>
                 </tr>
