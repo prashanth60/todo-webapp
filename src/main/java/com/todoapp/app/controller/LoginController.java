@@ -32,8 +32,7 @@ public class LoginController {
     @GetMapping(value = "/registration")
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
-        UserSignUpRequest user = new UserSignUpRequest();
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", new UserSignUpRequest());
         modelAndView.setViewName(REGISTRATION_VIEW);
         return modelAndView;
     }
@@ -51,7 +50,7 @@ public class LoginController {
         } catch (UsernameNotFoundException e) {
             userService.createUser(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
+            modelAndView.addObject("user", new UserSignUpRequest());
         } finally {
             modelAndView.setViewName(REGISTRATION_VIEW);
         }
