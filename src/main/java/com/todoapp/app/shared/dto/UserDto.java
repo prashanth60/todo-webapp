@@ -22,6 +22,7 @@ public class UserDto implements Serializable {
     private static final long serialVersionUID = 8058093790817969475L;
 
     private Long id;
+    private String name;
     private String username;
     private String password;
     private List<Todo> todoList = new ArrayList<>();
