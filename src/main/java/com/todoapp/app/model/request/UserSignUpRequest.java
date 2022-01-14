@@ -1,7 +1,5 @@
 package com.todoapp.app.model.request;
 
-import javax.validation.constraints.NotBlank;
-
 import lombok.Data;
 
 @Data

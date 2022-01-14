@@ -2,13 +2,11 @@ package com.todoapp.app.controller;
 
 import javax.validation.Valid;
 
-import com.todoapp.app.io.entity.User;
 import com.todoapp.app.model.request.UserSignUpRequest;
 import com.todoapp.app.model.request.validator.UserSignUpRequestValidator;
 import com.todoapp.app.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
