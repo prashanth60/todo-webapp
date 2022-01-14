@@ -74,16 +74,16 @@
               </p>
             </div>
             <table
-              class="table table-hover"
+              class="table table-hover table-sm"
               th:unless="${#lists.isEmpty(user.getTodoList)}"
               aria-describedby="User's todos"
             >
               <thead>
                 <tr>
                   <th scope="col">Last Modified</th>
-                  <th scope="col">Description</th>
+                  <th id="description-col" scope="col">Description</th>
                   <th scope="col">Completed</th>
-                  <th scope="col">Actions</th>
+                  <th class="w-auto" scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -116,12 +116,12 @@
                     >
                       <i class="far fa-edit"></i>
                     </button>
-                    |
                     <button
                       type="button"
                       id="delete"
                       class="btn btn-danger btn-sm"
                       data-bs-toggle="modal"
+                      th:data-content="${item.getContent}"
                       th:data-id="${item.getId}"
                       data-bs-target="#deleteModal"
                     >
@@ -160,9 +160,12 @@
         var button = $(event.relatedTarget); // Button that triggered the modal
 
         var id = button.data("id"); // Extract info from data-* attributes
+        var content = button.data("content");
         var modal = $(this);
 
         modal.find("#itemIdDelete").val(id);
+        modal.find("#itemContentDelete").text(content);
+
       });
     </script>
     <script th:src="@{scripts/modal.js}"></script>

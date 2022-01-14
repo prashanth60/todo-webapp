@@ -1,9 +1,37 @@
 .completed {
-    text-decoration: line-through;
-    color: gray;
+  text-decoration: line-through;
+  color: gray;
 }
-footer{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+#description-col {
+    width: 70%;
+}
+
+.modal-body{
+    padding: 2rem !important;
+}
+.form-check{
+    margin-top: 15px !important;
+}
+
+@media only screen and (max-width: 1200px) {
+    #description-col {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 765px) {
+    #description-col {
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #description-col {
+        width: auto;
+    }
 }
