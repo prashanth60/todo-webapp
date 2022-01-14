@@ -16,11 +16,12 @@
       <div class="panel-group">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h1 th:utext="'👋 Welcome ' + ${user.getName} + '! ' + '(@' + ${user.getUsername} + ')'"></h1>
+            <h1
+              th:utext="'👋 Welcome ' + ${user.getName} + '! ' + '(@' + ${user.getUsername} + ')'"
+            ></h1>
           </div>
           <br />
           <div class="panel-body">
-
             <form
               th:object="${todoUser}"
               action="/user/home"
@@ -59,9 +60,16 @@
               ></div>
             </form>
             <br />
-            <div class="alert alert-info" role="alert" th:if="${#lists.isEmpty(user.getTodoList)}">
+            <div
+              class="alert alert-info"
+              role="alert"
+              th:if="${#lists.isEmpty(user.getTodoList)}"
+            >
               <h4 class="alert-heading">No items to show</h4>
-              <p>You don't have any TODOs created. Start your productivity journey by creating one.</p>
+              <p>
+                You don't have any TODOs created. Start your productivity
+                journey by creating one.
+              </p>
             </div>
             <table
               class="table table-hover"
@@ -78,7 +86,10 @@
               </thead>
               <tbody>
                 <tr th:each="item: ${user.getTodoList}">
-                  <td th:text="${item.getFormattedModifiedAt}"></td>
+                  <td
+                    th:text="${item.getFormattedModifiedAt}"
+                    th:classappend="${item.getCompleted} ? completed : ''"
+                  ></td>
                   <td
                     th:text="${item.getContent}"
                     th:classappend="${item.getCompleted} ? completed : ''"
