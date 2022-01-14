@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import com.todoapp.app.io.entity.User;
 import com.todoapp.app.model.request.UserSignUpRequest;
+import com.todoapp.app.model.request.validator.UserSignUpRequestValidator;
 import com.todoapp.app.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class LoginController {
     @GetMapping(value = "/registration")
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("user", new UserSignUpRequest());
+        modelAndView.addObject("userSignUpRequest", new UserSignUpRequest());
         modelAndView.setViewName(REGISTRATION_VIEW);
         return modelAndView;
     }
@@ -40,20 +41,20 @@ public class LoginController {
     @PostMapping(value = "/registration")
     public ModelAndView createNewUser(@Valid UserSignUpRequest user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        try {
-            User userExists = (User) userService.loadUserByUsername(user.getUsername());
-            if (userExists != null) {
-                bindingResult
-                        .rejectValue("username", "error.user",
-                                "There is already a user registered with the user name provided");
-            }
-        } catch (UsernameNotFoundException e) {
-            userService.createUser(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new UserSignUpRequest());
-        } finally {
-            modelAndView.setViewName(REGISTRATION_VIEW);
-        }
+
+        modelAndView.addObject("userSignUpRequest", user);
+        modelAndView.setViewName(REGISTRATION_VIEW);
+
+        UserSignUpRequestValidator uv = new UserSignUpRequestValidator(userService);
+        uv.validate(user, bindingResult);
+
+        // checks empty value errors
+        if (bindingResult.hasErrors())
+            return modelAndView;
+
+        userService.createUser(user);
+        modelAndView.addObject("successMessage", "User has been registered successfully");
+
         return modelAndView;
     }
 

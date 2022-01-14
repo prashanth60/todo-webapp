@@ -14,7 +14,7 @@
               autocomplete="off"
               action="registration"
               th:action="@{/registration}"
-              th:object="${user}"
+              th:object="${userSignUpRequest}"
               method="post"
               class="form-horizontal"
               role="form"
@@ -28,14 +28,14 @@
                 class="form-control"
                 placeholder="Name"
                 th:field="*{name}"
-                th:value="${user.name}"
+                th:value="${userSignUpRequest.name}"
               />
               <label for="floatingInput">Name</label>
-              <label
+              <p
                 th:if="${#fields.hasErrors('name')}"
                 th:errors="*{name}"
-                class="validation-message"
-              ></label>
+                class="validation-message text-danger"
+              ></p>
             </div>
               <div class="form-floating mb-3">
                 <input
@@ -46,14 +46,14 @@
                   class="form-control"
                   placeholder="Username"
                   th:field="*{username}"
-                  th:value="${user.username}"
+                  th:value="${userSignUpRequest.username}"
                 />
                 <label for="floatingInput">Username</label>
-                <label
+                <p
                   th:if="${#fields.hasErrors('username')}"
                   th:errors="*{username}"
-                  class="validation-message"
-                ></label>
+                  class="validation-message text-danger"
+                ></p>
               </div>
 
               <div class="form-floating mb-3">
@@ -64,14 +64,31 @@
                   name="password"
                   placeholder="Password"
                   th:field="*{password}"
-                  th:value="${user.password}"
+                  th:value="${userSignUpRequest.password}"
                 />
                 <label for="floatingPassword">Password</label>
-                <label
+                <p
                   th:if="${#fields.hasErrors('password')}"
                   th:errors="*{password}"
-                  class="validation-message"
-                ></label>
+                  class="validation-message text-danger"
+                ></p>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="passwordRepeated"
+                  name="passwordRepeated"
+                  placeholder="Repeat Password"
+                  th:field="*{passwordRepeated}"
+                  th:value="${userSignUpRequest.passwordRepeated}"
+                />
+                <label for="floatingPassword">Repeat Password</label>
+                <p
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}"
+                  class="validation-message text-danger"
+                ></p>
               </div>
               <div class="col-12">
                 <button type="submit" class="btn btn-primary">Sign up</button>
