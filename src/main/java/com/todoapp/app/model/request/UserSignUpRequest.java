@@ -1,4 +1,4 @@
-package com.todoapp.app.request;
+package com.todoapp.app.model.request;
 
 import javax.validation.constraints.NotEmpty;
 

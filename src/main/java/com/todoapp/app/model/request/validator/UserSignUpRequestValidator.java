@@ -1,6 +1,6 @@
-package com.todoapp.app.request.validator;
+package com.todoapp.app.model.request.validator;
 
-import com.todoapp.app.request.UserSignUpRequest;
+import com.todoapp.app.model.request.UserSignUpRequest;
 import com.todoapp.app.service.UserService;
 
 import org.slf4j.Logger;

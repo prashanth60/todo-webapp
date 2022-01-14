@@ -3,7 +3,8 @@ package com.todoapp.app.shared.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import io.entity.User;
+import com.todoapp.app.io.entity.User;
+
 import lombok.Data;
 
 @Data

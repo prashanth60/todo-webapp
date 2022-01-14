@@ -6,8 +6,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import com.todoapp.app.request.TodoRequest;
-import com.todoapp.app.request.UserSignUpRequest;
+import com.todoapp.app.io.entity.Role;
+import com.todoapp.app.io.entity.Todo;
+import com.todoapp.app.io.entity.User;
+import com.todoapp.app.io.repositories.TodoRepository;
+import com.todoapp.app.io.repositories.UserRepository;
+import com.todoapp.app.model.request.TodoRequest;
+import com.todoapp.app.model.request.UserSignUpRequest;
 import com.todoapp.app.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +20,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import io.entity.Role;
-import io.entity.Todo;
-import io.entity.User;
-import io.repositories.TodoRepository;
-import io.repositories.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {

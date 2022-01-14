@@ -1,4 +1,4 @@
-package io.entity;
+package com.todoapp.app.io.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

@@ -1,4 +1,4 @@
-package io.entity;
+package com.todoapp.app.io.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

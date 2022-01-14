@@ -7,8 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import io.entity.Role;
-import io.entity.Todo;
+import com.todoapp.app.io.entity.Role;
+import com.todoapp.app.io.entity.Todo;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
