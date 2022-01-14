@@ -23,18 +23,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private static final String VIEW_NAME = "user/home";
+
     @GetMapping
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        TodoRequest todoUser = new TodoRequest();
         User user = (User) userService.loadUserByUsername(auth.getName());
 
-        modelAndView.addObject("userName", user.getUsername());
-        modelAndView.addObject("todoUser", todoUser);
-        modelAndView.addObject("todoList", user.getTodoList());
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("todoUser", new TodoRequest());
 
-        modelAndView.setViewName("user/home");
+        modelAndView.setViewName(VIEW_NAME);
 
         return modelAndView;
     }
@@ -52,11 +52,10 @@ public class UserController {
             modelAndView.addObject("successMessage", "Item has been created successfully");
         }
 
-        modelAndView.addObject("userName", user.getUsername());
+        modelAndView.addObject("user", user);
         modelAndView.addObject("todoUser", new TodoRequest());
-        modelAndView.addObject("todoList", user.getTodoList());
 
-        modelAndView.setViewName("user/home");
+        modelAndView.setViewName(VIEW_NAME);
 
         return modelAndView;
     }
@@ -71,11 +70,10 @@ public class UserController {
 
         userService.updateTodo(id, todo, completed);
 
-        modelAndView.addObject("userName", user.getUsername());
+        modelAndView.addObject("user", user);
         modelAndView.addObject("todoUser", new TodoRequest());
-        modelAndView.addObject("todoList", user.getTodoList());
 
-        modelAndView.setViewName("user/home");
+        modelAndView.setViewName(VIEW_NAME);
         return modelAndView;
     }
 
@@ -87,11 +85,10 @@ public class UserController {
 
         userService.deleteTodo(id);
 
-        modelAndView.addObject("userName", user.getUsername());
+        modelAndView.addObject("user", user);
         modelAndView.addObject("todoUser", new TodoRequest());
-        modelAndView.addObject("todoList", user.getTodoList());
 
-        modelAndView.setViewName("user/home");
+        modelAndView.setViewName(VIEW_NAME);
         return modelAndView;
     }
 
