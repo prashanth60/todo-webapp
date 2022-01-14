@@ -18,9 +18,14 @@
       <div class="panel-group">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h1
-              th:utext="'👋 Welcome ' + ${user.getName} + '! ' + '(@' + ${user.getUsername} + ')'"
+            <img th:src="@{/img/waving-hand.png}" alt="waving hand"/>
+            <div>
+              <h1
+              th:utext="'Welcome ' + ${user.getName} + '!'"
             ></h1>
+            <p id="userHeader" th:text="'(@' + ${user.getUsername} + ')'"></p>
+            </div>
+            
           </div>
           <br />
           <div class="panel-body">
@@ -31,7 +36,7 @@
               method="POST"
             >
               <div class="form-group row">
-                <div class="col col-12 col-sm-10 col-md-11">
+                <div class="col col-12 col-sm-10 col-lg-11">
                   <input
                     th:value="${todoUser.itemContent}"
                     type="text"
@@ -42,7 +47,7 @@
                   />
                 </div>
                 <button
-                  class="col col-12 col-sm-2 col-md-1 btn btn-primary btn-block"
+                  class="col col-12 col-sm-2 col-lg-1 btn btn-primary btn-block"
                   name="Submit"
                   type="Submit"
                   th:text="Create"
@@ -74,7 +79,7 @@
               </p>
             </div>
             <table
-              class="table table-hover table-sm"
+              class="table table-hover table-responsive-md"
               th:unless="${#lists.isEmpty(user.getTodoList)}"
               aria-describedby="User's todos"
             >

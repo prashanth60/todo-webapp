@@ -18,15 +18,37 @@ footer {
     margin-top: 15px !important;
 }
 
+.panel-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+#userHeader{
+    margin-top: -10px;
+    color: gray;
+}
+
+.panel-heading img {
+    margin: 15px;
+    max-width: 70px;
+}
+
 @media only screen and (max-width: 1200px) {
     #description-col {
         width: 60%;
     }
 }
 
+@media only screen and (max-width: 990px) {
+    #description-col {
+        width: 50%;
+    }
+}
+
 @media only screen and (max-width: 765px) {
     #description-col {
-        width: 45%;
+        width: 40%;
     }
 }
 

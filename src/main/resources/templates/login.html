@@ -11,6 +11,7 @@
         <div class="row vh-100 align-items-center justify-content-center">
           <div class="col col-12 col-md-5">
             <section id="login-page-info">
+              <img th:src="@{/img/man-dancing.png}" alt="man dancing emoji"/>
               <h1>¡Welcome!</h1>
               <p>Free Online ToDo utility</p>
             </section>
@@ -54,7 +55,7 @@
                 </label>
               </div> -->
               <div th:if="${param.error}" class="alert alert-danger" role="alert">
-                User Name or Password invalid, please verify
+                Username or Password invalid, please verify
               </div>
               <div class="col-12">
                 <button type="submit" class="btn btn-primary">Sign in</button>
