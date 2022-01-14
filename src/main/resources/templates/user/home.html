@@ -16,13 +16,10 @@
       <div class="panel-group">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h1 th:utext="'👋 Welcome ' + ${userName} + '!'"></h1>
+            <h1 th:utext="'👋 Welcome ' + ${user.getUsername} + '!'"></h1>
           </div>
           <br />
           <div class="panel-body">
-            <h3 th:if="${#lists.isEmpty(todoList)}">
-              <em>No items to show</em>
-            </h3>
 
             <form
               th:object="${todoUser}"
@@ -48,21 +45,27 @@
                   th:text="Create"
                 ></button>
               </div>
-              <p
+              <div
                 th:if="${successMessage}"
-                class="text-success"
                 th:text="${successMessage}"
-              ></p>
-              <p
+                class="alert alert-success"
+                role="alert"
+              ></div>
+              <div
                 th:if="${errorMessage}"
-                class="text-danger"
                 th:text="${errorMessage}"
-              ></p>
+                class="alert alert-danger"
+                role="alert"
+              ></div>
             </form>
             <br />
+            <div class="alert alert-info" role="alert" th:if="${#lists.isEmpty(user.getTodoList)}">
+              <h4 class="alert-heading">No items to show</h4>
+              <p>You don't have any TODOs created. Start your productivity journey by creating one.</p>
+            </div>
             <table
               class="table table-hover"
-              th:unless="${#lists.isEmpty(todoList)}"
+              th:unless="${#lists.isEmpty(user.getTodoList)}"
               aria-describedby="User's todos"
             >
               <thead>
@@ -74,10 +77,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="item: ${todoList}">
-                  <td
-                    th:text="${item.getFormattedModifiedAt}"
-                  ></td>
+                <tr th:each="item: ${user.getTodoList}">
+                  <td th:text="${item.getFormattedModifiedAt}"></td>
                   <td
                     th:text="${item.getContent}"
                     th:classappend="${item.getCompleted} ? completed : ''"
@@ -121,7 +122,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Edit Modal -->
     <div th:replace="fragments/modals :: edit"></div>
     <!-- Delete Modal -->
@@ -137,7 +138,7 @@
         var completed = button.data("completed");
         var modal = $(this);
 
-        modal.find("#itemCompletedEdit").prop("checked", completed);  
+        modal.find("#itemCompletedEdit").prop("checked", completed);
         modal.find("#itemContentEdit").val(content);
         modal.find("#itemIdEdit").val(id);
       });
