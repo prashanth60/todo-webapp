@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
         Set<Role> authorities = new HashSet<>();
         authorities.add(new Role("ROLE_USER"));
 
+        user.setName(userRequest.getName());
         user.setUsername(userRequest.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
