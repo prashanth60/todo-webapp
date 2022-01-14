@@ -67,6 +67,7 @@
             >
               <thead>
                 <tr>
+                  <th scope="col">Last Modified</th>
                   <th scope="col">Description</th>
                   <th scope="col">Completed</th>
                   <th scope="col">Actions</th>
@@ -74,6 +75,9 @@
               </thead>
               <tbody>
                 <tr th:each="item: ${todoList}">
+                  <td
+                    th:text="${item.getFormattedModifiedAt}"
+                  ></td>
                   <td
                     th:text="${item.getContent}"
                     th:classappend="${item.getCompleted} ? completed : ''"

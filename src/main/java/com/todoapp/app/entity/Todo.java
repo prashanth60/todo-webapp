@@ -1,6 +1,9 @@
 package com.todoapp.app.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,5 +44,18 @@ public class Todo implements Serializable {
     @NotEmpty
     private String content;
 
+    @Column(nullable = false)
     private Boolean completed = Boolean.FALSE;
+
+    @Column(nullable = false)
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    @LastModifiedDate
+    private LocalDateTime modifiedAt;
+
+    public String getFormattedModifiedAt() {
+        return this.modifiedAt.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+    }
 }

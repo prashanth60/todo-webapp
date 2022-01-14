@@ -62,6 +62,8 @@ public class UserServiceImpl implements UserService {
 
         todo.setUser(user);
         todo.setContent(todoRequest.getItemContent());
+        todo.setCreatedAt(LocalDateTime.now());
+        todo.setModifiedAt(LocalDateTime.now());
 
         user.getTodoList().add(todo);
 
@@ -97,6 +99,7 @@ public class UserServiceImpl implements UserService {
         }
 
         todoToUpdate.setCompleted(completed);
+        todoToUpdate.setCreatedAt(LocalDateTime.now());
 
         todoRepository.save(todoToUpdate);
     }

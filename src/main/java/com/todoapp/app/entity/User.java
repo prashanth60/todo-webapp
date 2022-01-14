@@ -50,13 +50,6 @@ public class User implements UserDetails {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    /*
-     * @Override
-     * public Collection<? extends GrantedAuthority> getAuthorities() {
-     * return authorities;
-     * }
-     */
-
     @Override
     public boolean isAccountNonExpired() {
         return this.enabled;
