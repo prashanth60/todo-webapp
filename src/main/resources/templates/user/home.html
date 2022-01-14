@@ -142,32 +142,7 @@
     <div th:replace="fragments/modals :: delete"></div>
 
     <footer th:replace="fragments/footer :: footer"></footer>
-    <script>
-      $("#editModal").on("show.bs.modal", function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
 
-        var id = button.data("id"); // Extract info from data-* attributes
-        var content = button.data("content");
-        var completed = button.data("completed");
-        var modal = $(this);
-
-        modal.find("#itemCompletedEdit").prop("checked", completed);
-        modal.find("#itemContentEdit").val(content);
-        modal.find("#itemIdEdit").val(id);
-      });
-
-      $("#deleteModal").on("show.bs.modal", function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-
-        var id = button.data("id"); // Extract info from data-* attributes
-        var content = button.data("content");
-        var modal = $(this);
-
-        modal.find("#itemIdDelete").val(id);
-        modal.find("#itemContentDelete").text(content);
-
-      });
-    </script>
-    <script th:src="@{scripts/modal.js}"></script>
+    <script type="text/javascript" th:src="@{/scripts/modals.js}"></script>
   </body>
 </html>
