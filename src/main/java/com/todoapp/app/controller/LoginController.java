@@ -2,7 +2,6 @@ package com.todoapp.app.controller;
 
 import javax.validation.Valid;
 
-import com.todoapp.app.entity.User;
 import com.todoapp.app.request.UserSignUpRequest;
 import com.todoapp.app.service.UserService;
 
@@ -13,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import io.entity.User;
 
 @Controller
 public class LoginController {

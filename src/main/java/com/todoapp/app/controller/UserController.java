@@ -2,7 +2,6 @@ package com.todoapp.app.controller;
 
 import javax.validation.Valid;
 
-import com.todoapp.app.entity.User;
 import com.todoapp.app.request.TodoRequest;
 import com.todoapp.app.service.UserService;
 
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import io.entity.User;
 
 @Controller
 @RequestMapping("/user/home")
