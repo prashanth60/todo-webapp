@@ -21,7 +21,7 @@
             <img th:src="@{/img/waving-hand.png}" alt="waving hand"/>
             <div>
               <h1
-              th:utext="'Welcome ' + ${user.getName} + '!'"
+              th:utext="'Hi, ' + ${user.getName} + '!'"
             ></h1>
             <p id="userHeader" th:text="'(@' + ${user.getUsername} + ')'"></p>
             </div>
@@ -34,10 +34,10 @@
               action="/user/home"
               th:action="@{/user/home}"
               method="POST"
+              class="row g-3"
             >
-              <div class="form-group row">
-                <div class="col col-12 col-sm-10 col-lg-11">
-                  <input
+            <div class="input-group mb-3">
+              <input
                     th:value="${todoUser.itemContent}"
                     type="text"
                     id="itemContent"
@@ -45,14 +45,14 @@
                     placeholder="Create new todo"
                     class="form-control"
                   />
-                </div>
-                <button
-                  class="col col-12 col-sm-2 col-lg-1 btn btn-primary btn-block"
+                  <button
+                  class="btn btn-outline-primary"
                   name="Submit"
                   type="Submit"
                   th:text="Create"
                 ></button>
-              </div>
+            </div>
+                
               <div
                 th:if="${successMessage}"
                 th:text="${successMessage}"
@@ -79,7 +79,7 @@
               </p>
             </div>
             <table
-              class="table table-hover table-responsive-md"
+              class="table table-borderless table-hover table-responsive-md"
               th:unless="${#lists.isEmpty(user.getTodoList)}"
               aria-describedby="User's todos"
             >
@@ -112,7 +112,7 @@
                   <td>
                     <button
                       type="button"
-                      class="btn btn-warning btn-sm"
+                      class="btn btn-outline-warning btn-sm"
                       data-bs-toggle="modal"
                       th:data-id="${item.getId}"
                       th:data-completed="${item.getCompleted}"
@@ -124,7 +124,7 @@
                     <button
                       type="button"
                       id="delete"
-                      class="btn btn-danger btn-sm"
+                      class="btn btn-outline-danger btn-sm"
                       data-bs-toggle="modal"
                       th:data-content="${item.getContent}"
                       th:data-id="${item.getId}"
