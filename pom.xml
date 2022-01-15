@@ -121,9 +121,6 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<processTypes>
-						<web>java $JAVA_OPTS -cp target/classes:target/dependency/* App</web>
-					 </processTypes>
 				</configuration>
 			</plugin>
 				<plugin>
