@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.todoapp.app.io.entity.Role;
 import com.todoapp.app.io.entity.Todo;
+import com.todoapp.app.shared.utils.DateComparator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,5 +31,10 @@ public class UserDto implements Serializable {
     private Set<Role> authorities = new HashSet<>();
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+
+    public List<Todo> getSortedByDateTodoList() {
+        this.todoList.sort(new DateComparator());
+        return this.todoList;
+    }
 
 }

@@ -92,7 +92,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="item: ${user.getTodoList}">
+                <tr th:each="item: ${user.getSortedByDateTodoList}">
                   <td
                     th:text="${item.getFormattedModifiedAt}"
                     th:classappend="${item.getCompleted} ? completed : ''"
