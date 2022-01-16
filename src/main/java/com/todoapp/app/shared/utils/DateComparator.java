@@ -8,7 +8,7 @@ public class DateComparator implements Comparator<Todo> {
 
     @Override
     public int compare(Todo t1, Todo t2) {
-        return -(t1.getModifiedAt().compareTo(t2.getModifiedAt()));
+        return -(t1.getCreatedAt().compareTo(t2.getCreatedAt()));
     }
 
 }
