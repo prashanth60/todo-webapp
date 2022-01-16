@@ -23,11 +23,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
+@Entity
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,18 +38,26 @@ public class User implements UserDetails {
 
     @Column(nullable = false, name = "username", unique = true)
     private String username;
+
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private Boolean enabled = Boolean.TRUE;
 
+    @Column(nullable = false)
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<Todo> todoList = new ArrayList<>();
 
+    @Column(nullable = false)
     @OneToMany(mappedBy = "userHasRole", fetch = FetchType.EAGER, orphanRemoval = false)
     private Set<Role> authorities = new HashSet<>();
 
+    @Column(nullable = false)
     @CreatedDate
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
