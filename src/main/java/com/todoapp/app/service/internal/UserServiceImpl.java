@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
         }
 
         todoToUpdate.setCompleted(completed);
-        todoToUpdate.setCreatedAt(LocalDateTime.now());
+        todoToUpdate.setModifiedAt(LocalDateTime.now());
 
         todoRepository.save(todoToUpdate);
     }
