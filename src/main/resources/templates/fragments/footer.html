@@ -3,13 +3,27 @@
   <head> </head>
   <body>
     <footer th:fragment="footer">
-      <div class="container-fluid d-flex flex-row justify-content-center align-items-center" th:align="center">
+      <div
+        class="container-fluid d-flex flex-row justify-content-between align-items-center"
+       
+      >
         <p>
           Made with 💙 by
           <a href="https://github.com/dantemogni" target="_blank"
             >Dante Mogni</a
           >
         </p>
+        <a
+          id="git-code"
+          href="https://github.com/dantemogni/todo-webapp"
+          target="_blank"
+          alt="View on github"
+          class="btn btn-outline-secondary btn-sm"
+          tabindex="-1"
+          role="button"
+          aria-disabled="true"
+          >Code <i class="fab fa-github"></i></a
+        >
       </div>
     </footer>
   </body>

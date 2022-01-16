@@ -4,3 +4,6 @@ footer {
     position: fixed;
     font-size: 0.9rem;
 }
+#git-code i {
+    font-size: 1rem;
+}
